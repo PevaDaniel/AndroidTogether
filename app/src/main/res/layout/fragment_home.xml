@@ -1,14 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".home"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".home">
+    android:background="@color/gray"
+    android:padding="20dp">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clHeader"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="690dp"
+        android:background="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/Musictb"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/black"
+            android:fontFamily="serif"
+            android:text="MusicApplication"
+            android:textAlignment="center"
+            android:textColor="@color/green"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/navigationView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/navigationView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Musictb">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/imageButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/Image_Button_2"
+                    app:srcCompat="@android:drawable/btn_star" />
+
+                <ImageButton
+                    android:id="@+id/imageButton2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/Image_Button_2"
+                    app:srcCompat="@drawable/ic_action_name" />
+
+            </LinearLayout>
+
+        </com.google.android.material.navigation.NavigationView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="750dp"
+        android:backgroundTint="@color/black"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/black">
+
+            <ProgressBar
+                android:id="@+id/MusicProgress"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="60dp"
+                android:progress="0"
+                android:progressBackgroundTint="@color/gray"
+                android:progressTint="@color/green"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/PlayButton"
+                style="@style/playcontroller"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="100dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:contentDescription="@string/Image_Button_2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/PauseButton"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/MusicProgress"
+                app:srcCompat="@drawable/baseline_play_arrow_24"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <ImageButton
+                android:id="@+id/PauseButton"
+                style="@style/playcontroller"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="200dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:contentDescription="@string/Image_Button_2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/MusicProgress"
+                app:srcCompat="@drawable/baseline_pause_24"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <ImageButton
+                android:id="@+id/SkipForward"
+                style="@style/playcontroller"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="275dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:contentDescription="@string/Iamge_Button_1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/MusicProgress"
+                app:srcCompat="@drawable/baseline_skip_next_24"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <ImageButton
+                android:id="@+id/SkipBackward"
+                style="@style/playcontroller"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:contentDescription="@string/Image_Button_2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/PlayButton"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/MusicProgress"
+                app:srcCompat="@drawable/baseline_skip_previous_24"
+                tools:ignore="TouchTargetSizeCheck" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/RecycleView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="100dp"
+        android:background="@color/black"
+        android:backgroundTint="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/clHeader" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

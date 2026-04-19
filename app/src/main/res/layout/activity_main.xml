@@ -8,27 +8,12 @@
     tools:context=".MainActivity"
     android:padding="20dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clHeader"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/Musictb"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="serif"
-            android:text="MusicApplication"
-            android:textColor="@color/green"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
