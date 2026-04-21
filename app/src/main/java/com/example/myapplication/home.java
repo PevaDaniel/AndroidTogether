@@ -36,7 +36,7 @@ public class home extends Fragment {
 
         MusicAdapter adapter = new MusicAdapter(musicList);
         recyclerView.setAdapter(adapter);
-        ImageButton favButton  = view.findViewById(R.id.imageButton2);
+        ImageButton favButton  = view.findViewById(R.id.imageButton);
         favButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

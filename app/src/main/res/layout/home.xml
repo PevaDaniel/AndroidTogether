@@ -95,9 +95,7 @@
                 android:progressBackgroundTint="@color/gray"
                 android:progressTint="@color/green"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf=""
-                tools:layout_editor_absoluteY="5dp" />
+                app:layout_constraintStart_toStartOf="parent" />
 
             <ImageButton
                 android:id="@+id/PlayButton"
