@@ -5,7 +5,7 @@ Gifeket fog tartalmazni a zenék leírása mellett, kedvenc lista létrehozása,
 Különböző permission használata például zene internetes letöltéséhez, háttértárhoz való hozzáféréshez
 
 feladatok:
-- Lista felület létrehozása: Kovács Márton Bence
+- Lista felület létrehozása: Péva Dániel
 - Lista felület Activity és Service kódja: Péva Dániel
-- Kedvenc lista felület felépítése: Péva Dániel
+- Kedvenc lista felület felépítése: Kovács Márton Bence
 - Kedvenc lista kódja: Kovács Márton Bence
