@@ -1,11 +1,12 @@
 package com.example.myapplication;
 
 public class Music {
-    String title;
-    String artist;
+    public String title;
+    public String artist;
+    public long id;
 
-    public Music(String title, String artist)
-    {
+    public Music(long id, String title, String artist) {
+        this.id = id;
         this.title = title;
         this.artist = artist;
     }
