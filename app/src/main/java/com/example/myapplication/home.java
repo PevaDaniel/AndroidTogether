@@ -113,24 +113,28 @@ public class home extends Fragment {
         String[] projection = {
                 MediaStore.Audio.Media._ID,
                 MediaStore.Audio.Media.TITLE,
-                MediaStore.Audio.Media.ARTIST
+                MediaStore.Audio.Media.ARTIST,
+                MediaStore.Audio.Media.ALBUM_ID
         };
 
-        String selection = MediaStore.Audio.Media.IS_MUSIC + " != 0";
-
-        Cursor cursor = resolver.query(uri, projection, selection, null, null);
+        Cursor cursor = resolver.query(uri, projection, null, null, null);
 
         if (cursor != null) {
             int idColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media._ID);
             int titleColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.TITLE);
             int artistColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ARTIST);
+            int albumColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ALBUM_ID);
 
             while (cursor.moveToNext()) {
                 long id = cursor.getLong(idColumn);
                 String title = cursor.getString(titleColumn);
                 String artist = cursor.getString(artistColumn);
+                long albumId = cursor.getLong(albumColumn);
 
-                Music m = new Music(id, title, artist);
+                Uri albumUri = Uri.parse("content://media/external/audio/albumart");
+                Uri coverUri = Uri.withAppendedPath(albumUri, String.valueOf(albumId));
+
+                Music m = new Music(id, title, artist, coverUri.toString());
                 m.isFavourite = FavStorage.isFavourite(getContext(), id);
 
                 musicList.add(m);

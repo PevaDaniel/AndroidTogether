@@ -24,38 +24,43 @@ public class MainActivity extends AppCompatActivity {
                 (NavHostFragment) getSupportFragmentManager()
                         .findFragmentById(R.id.fragmentContainerView);
 
-        NavController navController = navHostFragment.getNavController();
-
         checkPermissions();
     }
 
     private void checkPermissions() {
-        String permission;
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            permission = Manifest.permission.READ_MEDIA_AUDIO;
+            String[] permissions = {
+                    Manifest.permission.READ_MEDIA_AUDIO,
+                    Manifest.permission.READ_MEDIA_IMAGES
+            };
+
+            boolean needRequest = false;
+            for (String p : permissions) {
+                if (ContextCompat.checkSelfPermission(this, p)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    needRequest = true;
+                }
+            }
+
+            if (needRequest) {
+                ActivityCompat.requestPermissions(
+                        this,
+                        permissions,
+                        REQUEST_PERMISSION_CODE
+                );
+            }
+
         } else {
-            permission = Manifest.permission.READ_EXTERNAL_STORAGE;
+            if (ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.READ_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
+
+                ActivityCompat.requestPermissions(
+                        this,
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        REQUEST_PERMISSION_CODE
+                );
+            }
         }
-
-        if (ContextCompat.checkSelfPermission(this, permission)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            ActivityCompat.requestPermissions(
-                    this,
-                    new String[]{permission},
-                    REQUEST_PERMISSION_CODE
-            );
-        }
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        NavHostFragment navHostFragment =
-                (NavHostFragment) getSupportFragmentManager()
-                        .findFragmentById(R.id.fragmentContainerView);
-
-        return navHostFragment.getNavController().navigateUp()
-                || super.onSupportNavigateUp();
     }
 }

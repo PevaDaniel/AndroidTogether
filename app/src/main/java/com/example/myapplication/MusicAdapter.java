@@ -4,10 +4,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -28,6 +31,7 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView title, artist;
         ImageButton playButton, favButton;
+        ImageView cover;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -35,11 +39,17 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
             artist = itemView.findViewById(R.id.musicArtist);
             playButton = itemView.findViewById(R.id.playButton);
             favButton = itemView.findViewById(R.id.favButton);
+            cover = itemView.findViewById(R.id.coverImage);
         }
 
         public void bind(Music music, OnItemClickListener listener) {
             title.setText(music.title);
             artist.setText(music.artist);
+
+            Glide.with(itemView.getContext())
+                    .load(music.coverUri)
+                    .placeholder(R.drawable.ic_launcher_foreground)
+                    .into(cover);
 
             favButton.setImageResource(
                     music.isFavourite ? R.drawable.star_filled : R.drawable.star_50dp
