@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 
 import androidx.fragment.app.Fragment;
@@ -17,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,13 +28,20 @@ public class home extends Fragment {
     private RecyclerView recyclerView;
     private List<Music> musicList = new ArrayList<>();
     private MusicAdapter adapter;
-    private MediaPlayer mediaPlayer = new MediaPlayer();
+
+    private MediaPlayer mediaPlayer;
+    private int currentIndex = -1;
+
+    private ProgressBar progressBar;
+    private Handler handler = new Handler();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        mediaPlayer = new MediaPlayer();
 
         recyclerView = view.findViewById(R.id.RecycleView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -42,6 +51,38 @@ public class home extends Fragment {
 
         loadAudioFiles();
 
+        ImageButton playBtn = view.findViewById(R.id.PlayButton);
+        ImageButton pauseBtn = view.findViewById(R.id.PauseButton);
+        ImageButton skipForward = view.findViewById(R.id.SkipForward);
+        ImageButton skipBackward = view.findViewById(R.id.SkipBackward);
+        progressBar = view.findViewById(R.id.MusicProgress);
+
+        playBtn.setOnClickListener(v -> {
+            if (mediaPlayer != null && !mediaPlayer.isPlaying()) {
+                mediaPlayer.start();
+            }
+        });
+
+        pauseBtn.setOnClickListener(v -> {
+            if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+                mediaPlayer.pause();
+            }
+        });
+
+        skipForward.setOnClickListener(v -> {
+            if (currentIndex < musicList.size() - 1) {
+                currentIndex++;
+                playAudio(musicList.get(currentIndex));
+            }
+        });
+
+        skipBackward.setOnClickListener(v -> {
+            if (currentIndex > 0) {
+                currentIndex--;
+                playAudio(musicList.get(currentIndex));
+            }
+        });
+
         ImageButton favButton = view.findViewById(R.id.imageButton);
         favButton.setOnClickListener(v -> {
             NavController navController = Navigation.findNavController(
@@ -49,8 +90,21 @@ public class home extends Fragment {
             navController.navigate(R.id.nav_to_fav);
         });
 
+        handler.post(updateProgress);
+
         return view;
     }
+
+    private Runnable updateProgress = new Runnable() {
+        @Override
+        public void run() {
+            if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+                progressBar.setMax(mediaPlayer.getDuration());
+                progressBar.setProgress(mediaPlayer.getCurrentPosition());
+            }
+            handler.postDelayed(this, 300);
+        }
+    };
 
     private void loadAudioFiles() {
         ContentResolver resolver = requireContext().getContentResolver();
@@ -76,7 +130,10 @@ public class home extends Fragment {
                 String title = cursor.getString(titleColumn);
                 String artist = cursor.getString(artistColumn);
 
-                musicList.add(new Music(id, title, artist));
+                Music m = new Music(id, title, artist);
+                m.isFavourite = FavStorage.isFavourite(getContext(), id);
+
+                musicList.add(m);
             }
 
             cursor.close();
@@ -95,6 +152,8 @@ public class home extends Fragment {
             mediaPlayer.setDataSource(requireContext(), contentUri);
             mediaPlayer.prepare();
             mediaPlayer.start();
+
+            currentIndex = musicList.indexOf(music);
 
         } catch (Exception e) {
             e.printStackTrace();

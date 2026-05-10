@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -26,18 +27,39 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView title, artist;
+        ImageButton playButton, favButton;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.musicTitle);
             artist = itemView.findViewById(R.id.musicArtist);
+            playButton = itemView.findViewById(R.id.playButton);
+            favButton = itemView.findViewById(R.id.favButton);
         }
 
         public void bind(Music music, OnItemClickListener listener) {
-            title.setText(music.title != null ? music.title : "Unknown Title");
-            artist.setText(music.artist != null ? music.artist : "Unknown Artist");
+            title.setText(music.title);
+            artist.setText(music.artist);
 
-            itemView.setOnClickListener(v -> listener.onItemClick(music));
+            favButton.setImageResource(
+                    music.isFavourite ? R.drawable.star_filled : R.drawable.star_50dp
+            );
+
+            favButton.setOnClickListener(v -> {
+                music.isFavourite = !music.isFavourite;
+
+                favButton.setImageResource(
+                        music.isFavourite ? R.drawable.star_filled : R.drawable.star_50dp
+                );
+
+                if (music.isFavourite) {
+                    FavStorage.saveFavourite(itemView.getContext(), music.id);
+                } else {
+                    FavStorage.removeFavourite(itemView.getContext(), music.id);
+                }
+            });
+
+            playButton.setOnClickListener(v -> listener.onItemClick(music));
         }
     }
 
