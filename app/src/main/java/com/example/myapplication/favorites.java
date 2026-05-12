@@ -27,7 +27,7 @@ public class favorites extends Fragment {
     private MusicAdapter adapter;
     private List<Music> favoriteMusicList = new ArrayList<>();
 
-    //Lejátszó változók
+    //változók
     private MediaPlayer mediaPlayer;
     private int currentIndex = -1;
 
@@ -119,6 +119,7 @@ public class favorites extends Fragment {
         }
     }
 
+    //kedvencek betöltése
     private void loadFavoriteAudioFiles() {
         favoriteMusicList.clear();
 
@@ -170,6 +171,7 @@ public class favorites extends Fragment {
         }
     }
 
+    //zene lejátszása
     private void playAudio(Music music) {
         try {
             if (mediaPlayer == null) {

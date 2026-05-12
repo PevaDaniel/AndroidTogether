@@ -11,6 +11,7 @@ public class FavStorage {
     private static final String PREF_NAME = "favourites";
     private static final String KEY_FAVS = "fav_ids";
 
+    //kedvenc mentése
     public static void saveFavourite(Context context, long id) {
         SharedPreferences prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         Set<String> favs = new HashSet<>(prefs.getStringSet(KEY_FAVS, new HashSet<>()));
@@ -18,6 +19,7 @@ public class FavStorage {
         prefs.edit().putStringSet(KEY_FAVS, favs).apply();
     }
 
+    //kedvenc törlése
     public static void removeFavourite(Context context, long id) {
         SharedPreferences prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         Set<String> favs = new HashSet<>(prefs.getStringSet(KEY_FAVS, new HashSet<>()));
@@ -25,6 +27,7 @@ public class FavStorage {
         prefs.edit().putStringSet(KEY_FAVS, favs).apply();
     }
 
+    //kedvencek lekérése
     public static boolean isFavourite(Context context, long id) {
         SharedPreferences prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         Set<String> favs = prefs.getStringSet(KEY_FAVS, new HashSet<>());
